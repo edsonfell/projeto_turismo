@@ -18,7 +18,7 @@ def hello_http(request):
     for csv_url in request_json['csv_to_download']:
         file_name = csv_url.split("/")[-1]
         try:
-            print(f"Iniciando download do arquivo")
+            print(f"Iniciando download do arquivo {file_name}")
             response = requests.get(csv_url)
             if response.status_code == 200:
                 # Cria um objeto de blob no bucket
@@ -30,5 +30,7 @@ def hello_http(request):
                 print(f"Arquivo CSV baixado e salvo em gs://{bucket_name}/{file_name}")
             else:
                 print("Falha ao baixar o arquivo CSV!")
+
         except Exception as e:
             print(f"Erro: {e}")
+    return f'Finalizado!'
